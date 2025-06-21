@@ -10,6 +10,7 @@ public class EnemyHandler : MonoBehaviour, IInteractable
     public int enemyHealth;
     public int enemyMaxHealth;
     public int enemyDamage;
+    public int enemyExperience;
     private Animator enemyAnim;
 
     void start()
@@ -40,7 +41,7 @@ public class EnemyHandler : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log("The enemy is ready to fight");
-        gameObjct.tag = "isFighting";
+        gameObject.tag = "isFighting";
     }
     public void Interactable()
     {
