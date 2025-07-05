@@ -15,6 +15,11 @@ public class PlayerHandler : MonoBehaviour
     public bool isFighting;
     Vector2 inputVector = Vector2.zero;
     Controller playerController;
+    
+    public interface IInteractable
+    {
+        void Interact();
+    }
     void Start()
     {
         isFighting = false;

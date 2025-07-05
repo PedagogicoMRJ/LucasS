@@ -4,74 +4,67 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private LayerMask interactLayer;
+    [SerializeField] private float interactRadius;
+    
     public bool isStartingAFight;
-    public float speed = 5;
-    Vector2 movement;
-    Rigidbody2D bodyRig;
-    Animator anim;
-    public LayerMask interactLayer;
-    public float interactRadious;
-    // Start is called before the first frame update
-    void Start()
+    private Vector2 movement;
+    private Rigidbody2D rigidbody2D;
+    private Animator animator;
+    private Vector2 velocityVector;
+
+    private void Start()
     {
         isStartingAFight = false;
-        bodyRig = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
+        velocityVector = Vector2.zero;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (isStartingAFight)
         {
             isStartingAFight = false;
         }
-        InteractableObj();
-        Movement();
+        
+        CheckInteractions();
+        HandleMovement();
     }
+
+    private void HandleMovement()
+    {
+        velocityVector.Set(movement.x, movement.y);
+        float multiplier = (movement.x != 0 && movement.y != 0) ? 0.7f : 1f;
+        rigidbody2D.velocity = velocityVector * speed * multiplier;
+        
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Magnitude", movement.magnitude);
+    }
+
+    private void CheckInteractions()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, interactRadius, interactLayer);
+        if (hit == null || !Input.GetKeyDown(KeyCode.E)) return;
+
+        IInteractable interactable = hit.transform.GetComponent<IInteractable>();
+        if (interactable == null) return;
+
+        if (hit.CompareTag("Enemy"))
+        {
+            Debug.Log("The Heroine found an Enemy");
+            isStartingAFight = true;
+        }
+        
+        interactable.Interact();
+    }
+
+    public bool IsStartingFight => isStartingAFight;
 
     public void SetInputVector(Vector2 inputVector)
     {
-        movement.x = inputVector.x;
-        movement.y = inputVector.y;
-    }
-
-    void Movement()
-    {
-        if (movement.x != 0 && movement.y != 0)
-        {
-            bodyRig.velocity = new Vector2(movement.x, movement.y) * speed * 0.7f;
-        }
-        else
-        {
-            bodyRig.velocity = new Vector2(movement.x, movement.y) * speed;
-        }
-        anim.SetFloat("Horizontal", movement.x);
-        anim.SetFloat("Vertical", movement.y);
-        anim.SetFloat("Magnitude", movement.magnitude);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(transform.position, interactRadious);
-    }
-
-    public void InteractableObj()
-    {
-        Collider2D hit = Physics2D.OverlapCircle(transform.position, interactRadious, interactLayer);
-        if (hit != null)
-        {
-            IInteractable obj = hit.transform.GetComponent<IInteractable>();
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (obj == null) return;
-                if (hit.CompareTag("Enemy"))
-                {
-                    Debug.Log("The Heroine found an Enemy");
-                    isStartingAFight = true;
-                }
-                obj.Interact();
-            }
-        }
+        movement = inputVector;
     }
 }
