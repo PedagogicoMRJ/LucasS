@@ -5,6 +5,8 @@ using UnityEngine;
 public class Chest : MonoBehaviour, IInteractable
 {
     private Animator chestAnim;
+    public bool isInteactable => true;
+    public string InteractionName = "Open Chest";
     // Start is called before the first frame update
     void Start()
     {

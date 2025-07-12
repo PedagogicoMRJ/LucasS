@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemCollect : MonoBehaviour, IInteractable
 {
     public Item item;
+    public bool isInteactable => true;
 
     public void Interact()
     {

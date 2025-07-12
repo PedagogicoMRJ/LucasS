@@ -102,10 +102,10 @@ public class BattleSystem : MonoBehaviour
     IEnumerator EnemyTurn() 
     {
         Debug.Log("The Enemy attack the Player");
-        //bool isBoss = enemyUnit.isBoss;
+        bool isBoss = enemyUnit.isBoss;
         yield return new WaitForSeconds(1f);
         int enemyAction = 0;
-        /*if(isBoss)
+        if(isBoss)
         {
             enemyAction = Random.Range(1, 4);
             Debug.Log(enemyAction);
@@ -113,7 +113,7 @@ public class BattleSystem : MonoBehaviour
         else
         {
             enemyAction= 1;
-        }*/
+        }
         if(enemyAction == 1)
         {
             bool isDead = playerUnit.TakeDamage(enemyUnit.enemyDamage);
@@ -133,7 +133,7 @@ public class BattleSystem : MonoBehaviour
                 PlayerTurn();
             }
         }
-        /*else if(enemyAction == 2)
+        else if(enemyAction == 2)
         {
             Debug.Log("The Enemy heal herself");
             enemyUnit.Heal();
@@ -141,7 +141,7 @@ public class BattleSystem : MonoBehaviour
             battleHUD.SetHP(enemyUnit.enemyHealth, playerUnit.playerHealth);
             yield return new WaitForSeconds(1f);
             Debug.Log("Player Turn");
-            stage = BattleStage.PLAYERTURN;
+            stage = BattleStage.Playerturn;
             PlayerTurn();
         }
         else if (enemyAction == 3)
@@ -152,9 +152,9 @@ public class BattleSystem : MonoBehaviour
             battleHUD.SetHP(enemyUnit.enemyHealth, playerUnit.playerHealth);
             yield return new WaitForSeconds(1f);
             Debug.Log("Player Turn");
-            stage = BattleStage.PLAYERTURN;
+            stage = BattleStage.Playerturn;
             PlayerTurn();
-        }*/
+        }
         else
         {
             Debug.Log("Someting get wrong");
