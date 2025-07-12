@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Item : MonoBehaviour
+[CreateAssetMenu(fileName = "Name Item", menuName = "Inventory/Item")]
+public class Item : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    new public string name = "New Item";
 
-    // Update is called once per frame
-    void Update()
+    public Sprite icon = null;
+    public bool isDefaultItem = false;
+
+    public virtual void Use()
     {
-        
+        Debug.Log("Using " + name);
     }
 }

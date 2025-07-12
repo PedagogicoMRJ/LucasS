@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemCollect : MonoBehaviour
+public class ItemCollect : MonoBehaviour, IInteractable
 {
-    // Start is called before the first frame update
-    void Start()
+    public Item item;
+
+    public void Interact()
     {
-        
+        Collect();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Collect()
     {
-        
+        Debug.Log("Collect a " + item.name);
+        bool wasCollected = Inventory.instance.Add(item);
+        if (wasCollected)
+        {
+            Destroy(gameObject);
+        }
     }
 }

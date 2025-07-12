@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-public enum BattleStage { WATING, START, PLAYERTURN, ENEMYTURN, WON, LOST }
+public enum BattleStage { Wating, Start, Playerturn, Enemyturn, Won, Lost }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class BattleSystem : MonoBehaviour
     void Awake()
     {
         isFighting = false;
-        stage = BattleStage.WATING;
+        stage = BattleStage.Wating;
         battleHUD = GameObject.FindGameObjectWithTag("BattleHUD").GetComponent<BattleHUD>();
         playerUnit = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         specialButton.SetActive(false);
@@ -31,10 +31,10 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
-    public void StartFight()
+    private void StartFight()
     {
         Debug.Log("The fight began");
-        stage = BattleStage.START;
+        stage = BattleStage.Start;
         battleHUD.gameObject.SetActive(true);
         StartCoroutine(SetupBattle());
     }
@@ -44,7 +44,7 @@ public class BattleSystem : MonoBehaviour
         playerUnit = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         battleHUD.SetHUD(enemyUnit, playerUnit);
         yield return new WaitForSeconds(1f);
-        stage = BattleStage.PLAYERTURN;
+        stage = BattleStage.Playerturn;
         PlayerTurn();
     }
     void PlayerTurn()
@@ -53,19 +53,19 @@ public class BattleSystem : MonoBehaviour
     }
     public void AttackButton()
     {
-        if (stage != BattleStage.PLAYERTURN)
+        if (stage != BattleStage.Playerturn)
             return;
         StartCoroutine(PlayerAttack(playerUnit.playerDamage));
     }
     public void SpecialAttackButton()
     {
-        if (stage != BattleStage.PLAYERTURN)
+        if (stage != BattleStage.Playerturn)
             return;
         StartCoroutine(PlayerAttack(playerUnit.playerDamage*2));
     }
     public void HealButton()
     {
-        if (stage != BattleStage.PLAYERTURN)
+        if (stage != BattleStage.Playerturn)
             return;
         StartCoroutine(PlayerHeal());
     }
@@ -78,13 +78,13 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if(isDead)
         {
-            stage = BattleStage.WON;
+            stage = BattleStage.Won;
             StartCoroutine(EndBattle());
         }
         else
         {
             Debug.Log("Enemy Turn");
-            stage = BattleStage.ENEMYTURN;
+            stage = BattleStage.Enemyturn;
             StartCoroutine(EnemyTurn());
         }
     }
@@ -96,7 +96,7 @@ public class BattleSystem : MonoBehaviour
         battleHUD.SetHP(enemyUnit.enemyHealth, playerUnit.playerHealth);
         yield return new WaitForSeconds(1f);
         Debug.Log("Enemy Turn");
-        stage = BattleStage.ENEMYTURN;
+        stage = BattleStage.Enemyturn;
         StartCoroutine(EnemyTurn());
     }
     IEnumerator EnemyTurn() 
@@ -123,13 +123,13 @@ public class BattleSystem : MonoBehaviour
             if (isDead)
             {
                 Debug.Log("You died");
-                stage = BattleStage.LOST;
+                stage = BattleStage.Lost;
                 StartCoroutine(EndBattle());
             }
             else
             {
                 Debug.Log("Player Turn");
-                stage = BattleStage.PLAYERTURN;
+                stage = BattleStage.Playerturn;
                 PlayerTurn();
             }
         }
@@ -164,7 +164,7 @@ public class BattleSystem : MonoBehaviour
     }
     IEnumerator EndBattle()
     {
-        if(stage == BattleStage.WON)
+        if(stage == BattleStage.Won)
         {
             Debug.Log("You Won the Battle");
             playerUnit.isFighting = false;
@@ -175,14 +175,14 @@ public class BattleSystem : MonoBehaviour
                 EnableSpecialAttack();
             }
         }
-        else if(stage == BattleStage.LOST)
+        else if(stage == BattleStage.Lost)
         {
             Debug.Log("You Lost the Battle");
             playerUnit.isFighting = false;
             isFighting = false;
         }
         yield return new WaitForSeconds(1f);
-        stage = BattleStage.WATING;
+        stage = BattleStage.Wating;
         battleHUD.gameObject.SetActive(false);
     }
     void EnableSpecialAttack()
