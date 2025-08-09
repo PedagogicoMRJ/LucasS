@@ -34,11 +34,11 @@ public class BattleHUD : MonoBehaviour
         playerHealth.value = playerHP;
     }
     
-    /*void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            BattleHUD.SetActive(!BattleHUD.activeSelf);
+            gameObject.SetActive(true);
         }
-    }*/
+    }  
 }

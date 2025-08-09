@@ -26,7 +26,7 @@ public class Controller : MonoBehaviour
     {
         if (isStartingAFight)
         {
-            isStartingAFight = false;
+        isStartingAFight = false;
         }
         
         CheckInteractions();
