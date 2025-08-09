@@ -134,12 +134,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679e370c28a249744a8e2be30a667f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   isEnemyDead: 0
+  isArmored: 0
   enemyName: SLIME
   enemyLevel: 1
   enemyHealth: 10
   enemyMaxHealth: 10
+  enemyHeal: 0
   enemyDamage: 2
+  enemyExperience: 0
+  enemyArmor: 0
 --- !u!1 &7660968858366793101
 GameObject:
   m_ObjectHideFlags: 0

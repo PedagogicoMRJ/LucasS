@@ -15,7 +15,7 @@ public class BattleHUD : MonoBehaviour
     private void Start()
     {
         gameObject.SetActive(false);
-       
+
     }
     public void SetHUD(EnemyHandler enemyStatus, PlayerHandler playerStatus)
     {
@@ -33,4 +33,12 @@ public class BattleHUD : MonoBehaviour
         enemyHealth.value = enemyHP;
         playerHealth.value = playerHP;
     }
+    
+    /*void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            BattleHUD.SetActive(!BattleHUD.activeSelf);
+        }
+    }*/
 }
