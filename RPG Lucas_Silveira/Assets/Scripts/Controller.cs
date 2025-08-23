@@ -24,12 +24,15 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
+        CheckInteractions();
+        
         if (isStartingAFight)
         {
-        isStartingAFight = false;
+            StopMovement();
+            return;
+
         }
         
-        CheckInteractions();
         HandleMovement();
     }
 
@@ -67,4 +70,20 @@ public class Controller : MonoBehaviour
     {
         movement = inputVector;
     }
+    
+    private void StopMovement()
+    {
+        movement = Vector2.zero;
+        rigidbody2D.velocity = Vector2.zero;
+        animator.SetFloat("Horizontal", 0f);
+        animator.SetFloat("Vertical", 0f);
+        animator.SetFloat("Magnitude", 0f);
+    }
+
+    public void EndFight()
+    {
+        isStartingAFight = false;
+        StopMovement();
+    }
+
 }

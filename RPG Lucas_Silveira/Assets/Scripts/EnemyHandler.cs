@@ -48,6 +48,7 @@ public class EnemyHandler : MonoBehaviour, IInteractable
     {
         Debug.Log("The Enemy died");
         Destroy(gameObject, 2f);
+        StopAllCoroutines();
     }
 
     public void Interact()
