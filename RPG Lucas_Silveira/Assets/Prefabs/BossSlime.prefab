@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2588998598415274748}
   - component: {fileID: 5048684745373169437}
   - component: {fileID: 1334030498836667445}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BossSlime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1329236404789694712}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimeBossBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}

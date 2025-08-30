@@ -13,6 +13,11 @@ public class Controller : MonoBehaviour
     private Rigidbody2D rigidbody2D;
     private Animator animator;
     private Vector2 velocityVector;
+    
+    //Chat
+    private EnemyHandler currentEnemy;
+
+    private ControllerEnemyMov currentEnemyMove;
 
     private void Start()
     {
@@ -59,6 +64,20 @@ public class Controller : MonoBehaviour
         {
             Debug.Log("The Heroine found an Enemy");
             isStartingAFight = true;
+            
+            currentEnemyMove = hit.transform.GetComponent<ControllerEnemyMov>();
+            if (currentEnemyMove != null)
+            {
+                currentEnemyMove.SetInBattle(true); // Para o inimigo imediatamente
+            }
+
+            
+             //Guarda referência do inimigo e assina o evento de morte
+            currentEnemy = hit.transform.GetComponent<EnemyHandler>();
+            if (currentEnemy != null)
+            {
+                currentEnemy.OnEnemyDied += HandleEnemyDied;
+            }
         }
         
         interactable.Interact();
@@ -79,10 +98,25 @@ public class Controller : MonoBehaviour
         animator.SetFloat("Vertical", 0f);
         animator.SetFloat("Magnitude", 0f);
     }
+    
+    private void HandleEnemyDied()
+    {
+        EndFight();
+    }
+
 
     public void EndFight()
     {
         isStartingAFight = false;
+        
+        // Desinscreve e limpa referência para evitar memory leaks
+        if (currentEnemy != null)
+        {
+            currentEnemy.OnEnemyDied -= HandleEnemyDied;
+            currentEnemy = null;
+        }
+
+        
         StopMovement();
     }
 

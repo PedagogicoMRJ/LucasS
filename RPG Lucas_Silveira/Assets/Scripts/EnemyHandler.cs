@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class EnemyHandler : MonoBehaviour, IInteractable
 {
@@ -16,14 +18,17 @@ public class EnemyHandler : MonoBehaviour, IInteractable
     public int enemyDamage;
     public int enemyExperience;
     public int enemyArmor;
-    private Animator enemyAnim;
-
-    void start()
+    //private Animator enemyAnim;
+    
+    //chat
+    public event Action OnEnemyDied;
+    
+    void Start()
     {
         isEnemyDead = false;
-        enemyAnim = GetComponentInChildren<Animator>();
+        //enemyAnim = GetComponentInChildren<Animator>();
     }
-
+    
     public bool TakeDamage(int damage)
     {
         Debug.Log("The enemy take damage");
@@ -47,6 +52,11 @@ public class EnemyHandler : MonoBehaviour, IInteractable
     void EnemyDie()
     {
         Debug.Log("The Enemy died");
+        
+        // Notifica quem estiver ouvindo (ex.: Controller) que o inimigo morreu
+        OnEnemyDied?.Invoke();
+
+        
         Destroy(gameObject, 2f);
         StopAllCoroutines();
     }

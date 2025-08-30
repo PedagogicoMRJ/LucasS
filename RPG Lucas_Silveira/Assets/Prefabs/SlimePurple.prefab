@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5705868521097988421}
   - component: {fileID: 7614317720869150604}
   - component: {fileID: 6543015054406657211}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimePurple
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1290577989938522018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimePurpleBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}

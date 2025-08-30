@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2188237763545371191}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimeYellowBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 3434640725478550074}
   - component: {fileID: 1026565287090026502}
   - component: {fileID: 8553607691147418870}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimeYellow
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
