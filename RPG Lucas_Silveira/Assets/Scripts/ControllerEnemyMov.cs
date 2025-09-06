@@ -30,7 +30,7 @@ public class ControllerEnemyMov : MonoBehaviour
     private bool inBattle;
 
     private static readonly Vector2[] fourDirs = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
-
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

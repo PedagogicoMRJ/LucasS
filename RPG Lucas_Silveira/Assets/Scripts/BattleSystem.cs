@@ -12,6 +12,9 @@ public class BattleSystem : MonoBehaviour
     PlayerHandler playerUnit;
     public GameObject specialButton;
     public bool isFighting;
+    
+    //[SerializeField] private float enemyAttackWindup = 0.35f;  // tempo antes do impacto
+
     void Awake()
     {
         isFighting = false;
@@ -162,6 +165,22 @@ public class BattleSystem : MonoBehaviour
             StartCoroutine(EnemyTurn());
         }
     }
+    
+    // Chame este método quando for a vez do inimigo atacar
+    public IEnumerator EnemyTurnAttack(EnemyHandler enemy, GameObject playerGO)
+    {
+        if (enemy == null || playerGO == null)
+            yield break;
+
+        // Dispara a animação de ataque (só tocará se InBattle estiver true)
+        var anim = enemy.GetComponent<EnemyAttack>();
+        if (anim != null)
+            anim.RequestAttackAnimation();
+        
+        // Aguarda o wind-up (faça combinar com o momento do impacto na animação)
+        //yield return new WaitForSeconds(enemyAttackWindup);
+    }    
+
     IEnumerator EndBattle()
     {
         if(stage == BattleStage.Won)

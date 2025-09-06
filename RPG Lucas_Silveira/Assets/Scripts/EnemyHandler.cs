@@ -18,17 +18,70 @@ public class EnemyHandler : MonoBehaviour, IInteractable
     public int enemyDamage;
     public int enemyExperience;
     public int enemyArmor;
-    //private Animator enemyAnim;
     
     //chat
     public event Action OnEnemyDied;
     
+    [SerializeField] private Animator animator;
+    [SerializeField] private float attackInterval = 1.5f; // tempo entre ataques
+
+    bool inBattle;
+    private Coroutine attackRoutine;
+    private static readonly int AttackTriggerHash = Animator.StringToHash("AttackTrigger");
+
+    
     void Start()
     {
         isEnemyDead = false;
-        //enemyAnim = GetComponentInChildren<Animator>();
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
     
+    // Chame quando a batalha começar/terminar
+    public void SetInBattle(bool value)
+    {
+        if (inBattle == value) return;
+        inBattle = value;
+
+        if (inBattle && !isEnemyDead)
+        {
+            if (attackRoutine != null) StopCoroutine(attackRoutine);
+            attackRoutine = StartCoroutine(AttackLoop());
+        }
+        else
+        {
+            if (attackRoutine != null)
+            {
+                StopCoroutine(attackRoutine);
+                attackRoutine = null;
+            }
+        }
+    }
+    
+    private IEnumerator AttackLoop()
+    {
+        while (inBattle && !isEnemyDead)
+        {
+            EnemyAttack();
+            yield return new WaitForSeconds(attackInterval);
+        }
+        attackRoutine = null;
+    }
+
+
+    public void EnemyAttack()
+    {
+        if (isEnemyDead) return;
+
+        if (animator == null)
+        {
+            Debug.LogWarning("EnemyAttack called but Animator is missing.");
+            return;
+        }
+
+        // Ativa a animação de ataque
+        animator.SetTrigger("AttackTriggerHash");
+    }
     public bool TakeDamage(int damage)
     {
         Debug.Log("The enemy take damage");

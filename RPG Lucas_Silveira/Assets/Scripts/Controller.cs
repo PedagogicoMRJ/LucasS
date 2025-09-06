@@ -18,6 +18,8 @@ public class Controller : MonoBehaviour
     private EnemyHandler currentEnemy;
 
     private ControllerEnemyMov currentEnemyMove;
+    
+    //private EnemyAttack currentEnemyAttackAnim; // NOVO
 
     private void Start()
     {
@@ -70,6 +72,13 @@ public class Controller : MonoBehaviour
             {
                 currentEnemyMove.SetInBattle(true); // Para o inimigo imediatamente
             }
+            
+            /* NOVO: ligar o modo batalha no Animator do inimigo
+            currentEnemyAttackAnim = hit.transform.GetComponent<EnemyAttack>();
+            if (currentEnemyAttackAnim != null)
+            {
+                currentEnemyAttackAnim.SetInBattle(true);
+            }*/
 
             
              //Guarda referência do inimigo e assina o evento de morte
@@ -108,6 +117,14 @@ public class Controller : MonoBehaviour
     public void EndFight()
     {
         isStartingAFight = false;
+        
+        /* NOVO: desligar modo batalha no Animator do inimigo
+        if (currentEnemyAttackAnim != null)
+        {
+            currentEnemyAttackAnim.SetInBattle(false);
+            currentEnemyAttackAnim = null;
+        }*/
+
         
         // Desinscreve e limpa referência para evitar memory leaks
         if (currentEnemy != null)
