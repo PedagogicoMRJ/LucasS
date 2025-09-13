@@ -52,20 +52,47 @@ public class PlayerHandler : MonoBehaviour
     public void GainExperience(int experience)
     {
         playerExperience += experience;
-        while (playerExperience >= playerMaxExperience)
+        // Evita loop infinito se o custo estiver inválido (ex.: não inicializado no Inspector)
+        if (playerMaxExperience <= 0f)
+        {
+            Debug.LogWarning("playerMaxExperience estava <= 0. Definindo para 100 para evitar loop infinito.");
+            playerMaxExperience = 100f;
+        }
+
+        // Sobe múltiplos níveis se necessário, com guard de segurança
+        int safety = 0;
+        const int maxLevelUpsPerCall = 50;
+        while (playerExperience >= playerMaxExperience && safety < maxLevelUpsPerCall)
         {
             LevelUp();
+            safety++;
         }
+
+        if (safety == maxLevelUpsPerCall)
+        {
+            Debug.LogWarning("Limite de level-ups atingido em uma única chamada. Verifique valores de XP/custos.");
+        }
+
     }
     void LevelUp()
     {
+        float prevMax = playerMaxExperience;
+
+        
         playerLevel++;
         playerMaxHealth += 10;
         playerHealth = playerMaxHealth;
         playerArmor++;
         playerDamage += 5;
         playerHeal += 5;
-        playerExperience = playerExperience - playerMaxExperience;
-        playerMaxExperience = playerMaxExperience*1.5f;
+        //playerExperience = playerExperience - playerMaxExperience;
+        //playerMaxExperience = playerMaxExperience*1.5f;
+        
+        // Primeiro desconta o custo antigo...
+        playerExperience -= prevMax;
+
+        // ...depois aumenta o custo do próximo nível
+        playerMaxExperience = Mathf.Max(1f, Mathf.Ceil(prevMax * 1.5f)); // garante > 0
+
     }
 }
