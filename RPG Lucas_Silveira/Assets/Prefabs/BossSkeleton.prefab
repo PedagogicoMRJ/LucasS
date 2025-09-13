@@ -211,15 +211,15 @@ MonoBehaviour:
   isEnemyDead: 0
   isArmored: 1
   enemyName: SkeletonBoss
-  enemyLevel: 15
-  enemyHealth: 250
-  enemyMaxHealth: 250
-  enemyHeal: 50
-  enemyDamage: 120
-  enemyExperience: 1500
-  enemyArmor: 200
-  animator: {fileID: 0}
-  attackInterval: 1.5
+  enemyLevel: 50
+  enemyHealth: 500
+  enemyMaxHealth: 500
+  enemyHeal: 100
+  enemyDamage: 250
+  enemyExperience: 5000
+  enemyArmor: 400
+  animator: {fileID: 3854237591927780080}
+  attackInterval: 1
 --- !u!61 &1628386067667386465
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ public class PlayerHandler : MonoBehaviour
     public void GainExperience(int experience)
     {
         playerExperience += experience;
-        if (playerExperience >= playerMaxExperience)
+        while (playerExperience >= playerMaxExperience)
         {
             LevelUp();
         }
